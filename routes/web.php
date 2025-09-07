@@ -9,7 +9,7 @@ Route::get('/', function () {
 });
 Route::get('/video/{slug}', [VideoController::class, 'show'])->name('video.show');
 
-// Telegram getUpdates (inbox check)
+// Telegram getUpdates
 Route::get('/telegram/test', function () {
     $token = config('services.telegram.bot_token');
     $updates = Http::get("https://api.telegram.org/bot{$token}/getUpdates")->json();

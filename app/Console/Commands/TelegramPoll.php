@@ -44,16 +44,17 @@ class TelegramPoll extends Command
             $reply = $message;
 
             foreach ($links as $link) {
+                $slug = Str::random(10);
                 $video = VideoLink::create([
                     'telegram_user_id'   => $update['message']['from']['id'] ?? null,
                     'telegram_chat_id'   => $chatId,
                     'telegram_message_id'=> $messageId,
                     'original_url'       => $link,
-                    'slug'               => Str::random(10),
-                    'new_url'            => config('app.url') . "/video/" . Str::random(10),
+                    'slug'               => $slug,
+                    'new_url'            => config('app.url') . "/video/" . $slug,
                 ]);
 
-                $newUrl = config('app.url') . "/video/" . $video->slug;
+                $newUrl = $video->new_url;
                 $reply = str_replace($link, $newUrl, $reply);
             }
 
