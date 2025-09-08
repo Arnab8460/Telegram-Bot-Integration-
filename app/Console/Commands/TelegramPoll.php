@@ -33,8 +33,15 @@ class TelegramPoll extends Command
                 continue;
             }
 
-            preg_match_all('/https?:\/\/www\.terabox\.com\/s\/[A-Za-z0-9]+/', $message, $matches);
-            $links = $matches[0];
+            // preg_match_all('/https?:\/\/www\.terabox\.com\/s\/[A-Za-z0-9]+/', $message, $matches);
+            // $links = $matches[0];
+            preg_match_all(
+                '/https?:\/\/(?:www\.)?(?:terabox|1024tera)\.com\/[^\s]+/i',
+                $message,
+                $matches
+            );
+
+            $links = $matches[0];  
 
             if (empty($links)) {
                 $this->sendMessage($chatId, "Only Terabox video links are allowed.", $messageId);
